@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Semantic Search Results for "{{ q }}"</h1>
+</div>
+
+<div class="btn-group mb-3" role="group">
+    <a href="{{ url_for('.search', q=q, mode='keyword') }}" class="btn btn-outline-secondary">Keyword Search</a>
+    <a href="{{ url_for('.search', q=q, mode='semantic') }}" class="btn btn-outline-primary active">Semantic Search</a>
+</div>
+
+<div class="row">
+    {% for photo in photos %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+        <div class="card">
+            <a href="{{ url_for('.show_photo', photo_id=photo.id) }}">
+                <img class="card-img-top" src="{{ url_for('main.get_image', filename=photo.filename_s) }}" alt="Photo">
+            </a>
+            <div class="card-body p-2">
+                <small class="text-muted">by {{ photo.author.name }}</small>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <p>No photos found. Try a different search term.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

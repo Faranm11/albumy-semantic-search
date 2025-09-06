@@ -225,6 +225,7 @@ tagging = db.Table('tagging',
 
 @whooshee.register_model('description')
 class Photo(db.Model):
+    embedding_vector = db.Column(db.Text)
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(500))
     filename = db.Column(db.String(64))
